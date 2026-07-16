@@ -4,7 +4,7 @@
 
 ## One platform to manage your entire business
 
-Built to unify Sales, Inventory, Accounts, Procurement, and Manufacturing under one system — with real-time visibility across every branch and depot, multi-company and multi-department support, and access from PC, tablet, or mobile. In production for manufacturing groups for 2+ years.
+Built to unify Sales, Inventory, Accounts, Procurement, and Manufacturing under one system — with real-time visibility across every branch and depot, multi-company and multi-department support, and access from PC, tablet, or mobile. In production for manufacturing groups for 3+ years.
 
 ## Core modules
 
