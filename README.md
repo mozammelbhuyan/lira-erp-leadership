@@ -7,8 +7,6 @@
 
 > Scope note: this write-up covers architecture *patterns*, technology choices, and functional capabilities. It does not include database schema, stored procedures, screen-level field specifications, or any client/transaction data — those remain internal to Lira Group.
 
-📊 **[View the platform overview presentation (PDF)](./Platform_Overview_Presentation.pdf)** — opens directly in-browser via GitHub's PDF viewer.
-
 ---
 
 ## The problem
