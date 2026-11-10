@@ -1,78 +1,75 @@
 # Enterprise Data-Driven ERP — Multi-Company Manufacturing Platform
 
-**Role:** Sole Architect & Technical Owner (as Head of IT & ERP)
+**Role:** ERP Architect & Technical Owner (as Head of IT & ERP)
 **Organization:** Lira Group of Industries — polymer manufacturing, packaging, distribution, and warehousing
-**Status:** In stable production, serving 8 companies, zero major incidents since rollout
-**My work:** Requirement discovery, full solution design (data model, functional design, screen/UX design, security, deployment architecture), technical leadership through build (by an external development team) and delivery
+**Status:** In production since 2023, serving 8 companies; extended in 7 phases
+**My work:** Requirement discovery, scope of work, full solution design (data model, functional design, screen design, security, reports, deployment), and technical leadership of freelance Java developers who built to my design
 
 > Scope note: this write-up covers architecture *patterns*, technology choices, and functional capabilities. It does not include database schema, stored procedures, screen-level field specifications, or any client/transaction data — those remain internal to Lira Group.
 
-📊 **[View the platform overview presentation (PDF)](./Platform_Overview_Presentation.pdf)** — opens directly in-browser via GitHub's PDF viewer. (A `.pptx` version is also included in this repo for anyone who wants the editable source.)
+📊 **[View the platform overview presentation (PDF)](./Platform_Overview_Presentation.pdf)** — opens directly in-browser via GitHub's PDF viewer.
 
 ---
 
 ## The problem
 
-Lira Group runs multiple manufacturing, packaging, distribution, and warehousing companies under one umbrella. Each business unit had its own disconnected way of tracking purchasing, sales, inventory, and receivables/payables — and critically, the group's finance team still relied on a **separate, existing accounting software package** that couldn't be replaced but had to stay in sync. There was no way to see the group's financial and operational position in real time, and adding a new business unit meant standing up yet another disconnected system.
+When I joined Lira Group in 2023, the group's previous business software had failed, and the companies needed a working system to keep sales, stock and receivables moving. Each business unit also tracked purchasing, sales and inventory in its own way, with no group-wide view.
 
-## What I designed
+## What I did
 
-A **single, config-driven ERP platform** built to scale to an unlimited number of companies without new development for each one — a business is *added*, not *built*. Eight are running on it today.
+**Month one — a working system.** Within one month I took a basic Sales, Inventory and Accounts Receivable system live. I did the requirement analysis, scope of work, blueprint, reports and server deployment myself; freelance Java developers coded it to my design. It was meant as a temporary solution until a larger third-party ERP was chosen.
+
+**Seven phases — a full platform.** Users adopted it well, so management asked me to keep extending it instead of buying a new ERP. Over 7 phases I grew it into a single, config-driven ERP that now serves 8 group companies. New companies are added through configuration, not new development.
 
 ### Core functional coverage
-- **Accounts Receivable & Accounts Payable** — full AR/AP cycle: money receipts, customer/supplier adjustments, opening balances, direct receivable/payable entries, customer profile views
+- **Accounts Receivable & Accounts Payable** — money receipts, customer/supplier adjustments, opening balances, direct receivable/payable entries, customer profile views
 - **Sales & Distribution** — order-to-invoice, delivery tracking, invoice correction workflows, sales admin controls
 - **Procurement** — purchase requisition → purchase order → GRN, with both direct and requisition-driven paths
 - **Inventory** — multi-warehouse transfers, receive/issue, adjustments, store requisition and acknowledgement workflows, saleable-item and DSM (distributor stock management) views
 - **Production** — manufacturing-side tracking integrated with inventory consumption
 - **Field Force** — mobile-accessible tools for field sales/distribution staff
-- **Forecasting** — demand/sales forecasting to support planning
-- **External accounting integration** — a dedicated data-exchange layer keeps the group's existing accounting software package synchronized with this platform, rather than replacing it outright — a pragmatic choice that avoided disrupting finance operations during rollout
+- **HR & Payroll** and **MIS dashboards**
+- **Tally integration** — a data-exchange layer between the ERP and the group's Tally accounting
 
 ### Design principles behind it
-- **Fully data-driven.** Menus, screens, user access, and business rules are configuration, not hardcoded per company — this is what makes "add an unlimited number of companies" actually true rather than a marketing line.
-- **Config-driven multi-tenancy.** Every business unit is isolated by a business/organization key throughout the data model, so one platform instance serves all 8 companies (and can take more) without per-company forks of the codebase.
-- **Admin & IT support separation.** A distinct administration panel (business profile, user/profile management, codes & parameters, data correction tools) sits apart from a **separate IT support panel** for troubleshooting, monitoring, and operational maintenance — so day-to-day business admin and technical support don't collide.
-- **Security.** Role-based access control, audit logging (every table carries create/update user and timestamp metadata), and profile-based screen/field permissions.
-- **Reliability & continuity.** Built for 24/7 operation, with automated, fast backup and a defined disaster-recovery path — this isn't a "nice to have" for a platform running live manufacturing and distribution operations.
-- **Performance & footprint.** Deliberately kept lightweight for responsiveness across branch/depot network conditions, not just head-office connections.
-- **Mobile responsive.** Usable from PC, tablet, or phone — important given field force and warehouse users aren't sitting at desks.
-- **Reporting depth.** 150+ reports across sales, purchase, inventory, and finance, giving group leadership real, current visibility instead of end-of-month reconciliation.
+- **Data-driven.** Menus, screens, user access, and business rules are configuration, not hardcoded per company.
+- **Multi-company by design.** Every business unit is isolated by a business/organization key throughout the data model, so one platform instance serves all 8 companies without per-company forks of the codebase.
+- **Admin & IT support separation.** A business administration panel (business profile, user/profile management, codes & parameters, data correction tools) sits apart from a separate IT support panel for troubleshooting, monitoring, and maintenance.
+- **Security.** Role-based access control, audit fields on every table (create/update user and timestamp), and profile-based screen/field permissions.
+- **Continuity.** Automated backups and a defined disaster-recovery path, because the platform runs live manufacturing and distribution operations.
+- **Lightweight and mobile-responsive.** Usable from PC, tablet, or phone, and over branch/depot network conditions, not just head-office connections.
+- **Reporting.** 150+ reports across sales, purchase, inventory, and finance.
 
 ### Technology stack
-- **Language/Framework:** Java, Spring Boot (with Spring Cloud for the distributed/service-oriented pieces)
+- **Language/Framework:** Java, Spring Boot
 - **Reporting:** Crystal Reports
 - **Database:** Microsoft SQL Server
-- **Platform:** Windows Server, served via IIS/Apache
+- **Platform:** Windows Server, Apache Tomcat
 
 ## Delivery model
 
-I ran requirement discovery directly with department stakeholders (sales, accounts, factory/warehouse teams), owned the full design (data model, functional design, screen design, security model), and directed an external development team through build, testing, and bug-fixing. I led UAT, master-data/opening-balance preparation with each department, staff training, and the phased go-live — starting with a pilot company and scaling out.
+I ran requirement discovery directly with department stakeholders (sales, accounts, factory/warehouse teams), owned the design (data model, functional design, screen design, security model, reports), and directed freelance developers through build, testing, and bug-fixing. I led UAT, master-data and opening-balance preparation with each department, staff training, and each phase's go-live. Since 2026 I also deliver enhancements through AI-assisted development under strict change control (test server, backups, change reports, developer handover).
 
-## Specific business problems this solved
+## Business problems it addresses
 
-Beyond the general platform capabilities above, this system was purpose-built to close real, recurring operational gaps that had cost the group time and money for years:
+These came from stakeholders during requirement discovery across the phases:
 
-- **Undelivered goods problem** — sales orders that left the warehouse but weren't confirmed delivered had no systematic tracking, creating silent leakage. The platform added dedicated undelivered-order tracking with **ageing analysis**, so stuck deliveries surface automatically instead of being discovered during reconciliation.
-- **Division-wise period closing with incentive allocation** — closing a month or year per division while correctly allocating sales incentives across teams was a manual, error-prone process. This is now handled systematically within the platform's closing workflow.
-- **Field force hierarchy & data access control** — sales/field staff at different hierarchy levels (rep → area manager → regional manager, etc.) previously had no consistent, enforced boundary on what data they could see or touch. The platform enforces **hierarchy-based access permissions**, so each level sees exactly what it should — no more, no less.
-- **Invoice correction problem** — correcting a posted invoice without breaking downstream accounting/inventory records was previously risky or manual. A controlled invoice-correction workflow now handles this safely.
-- **Inventory ageing** — slow-moving and dead stock across depots was invisible until physical counts. Ageing reports now surface this continuously.
-- **Overdue tracking** — customer and supplier overdue balances are tracked and surfaced proactively rather than discovered at month-end.
-- **Sales promotion & pricing complexity** — running promotional pricing, discounts, and special terms across multiple companies and product lines was hard to manage consistently. The platform handles this in a structured, auditable way.
-- **Digital money receipt & acknowledgement with SMS** — payment receipt and acknowledgement was a manual, paper-heavy process prone to disputes. This is now digital, with **SMS-based acknowledgement** giving both the company and the customer a real-time, verifiable record.
-- **Unlimited sales/purchase/inventory groups & units** — the group's product and unit-of-measure structures don't fit a fixed, hardcoded taxonomy. The platform supports **unlimited, configurable groups and units** for sales, purchase, and inventory instead of forcing the business to fit a rigid schema.
-- **One company, multiple national jurisdictions** — a single legal entity operating across more than one country/national context needed to handle jurisdiction-specific rules (tax, reporting, compliance) without being split into separate systems. The platform's config-driven, multi-scoped design accommodates this within one company record rather than requiring a workaround.
-
-Each of these was a real, named pain point from stakeholders during requirement discovery — not a generic ERP feature checklist. Solving them is what actually earned the platform's adoption across all 8 companies.
+- **Undelivered goods** — undelivered-order tracking with ageing analysis, so stuck deliveries surface instead of being found during reconciliation.
+- **Division-wise period closing with incentive allocation** — handled within the platform's closing workflow instead of manual spreadsheets.
+- **Field force hierarchy & data access** — hierarchy-based permissions (rep → area manager → regional manager) so each level sees only its own data.
+- **Invoice correction** — a controlled workflow for correcting posted invoices without breaking downstream accounting and inventory records.
+- **Inventory ageing** — ageing reports surface slow-moving and dead stock across depots.
+- **Overdue tracking** — customer and supplier overdue balances are tracked and reported.
+- **Sales promotions & pricing** — promotional pricing, discounts and special terms handled in a structured, auditable way.
+- **Digital money receipts with SMS acknowledgement** — replacing a paper-heavy receipt process.
+- **Configurable groups & units** — unlimited, configurable groups and units of measure for sales, purchase, and inventory.
 
 ## Outcome
 
-- **8 companies live** on a single platform, architected to scale to more without re-development
-- **150+ reports** giving real-time operational and financial visibility across the group
-- **Zero major production incidents** since go-live — the platform has proven reliable under real day-to-day manufacturing and distribution load
-- **24/7 uptime posture** with fast backup and disaster recovery in place
-- Successfully **coexists with the group's existing accounting software** rather than requiring a disruptive rip-and-replace
+- Started as a one-month stopgap; became the group's ERP through 7 phases
+- **8 companies live** on a single platform, with new companies added by configuration
+- **150+ reports** for operational and financial visibility across the group
+- Works alongside the group's Tally accounting through a data-exchange layer
 
 ---
 
