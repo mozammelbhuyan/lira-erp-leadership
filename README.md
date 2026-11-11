@@ -26,7 +26,7 @@ When I joined Lira Group in 2023, the group's previous business software had fai
 - **Inventory** — multi-warehouse transfers, receive/issue, adjustments, store requisition and acknowledgement workflows, saleable-item and DSM (distributor stock management) views
 - **Production** — manufacturing-side tracking integrated with inventory consumption
 - **Field Force** — mobile-accessible tools for field sales/distribution staff
-- **HR & Payroll** and **MIS dashboards**
+- **Shipment Management** and **MIS dashboards**
 - **Tally integration** — a data-exchange layer between the ERP and the group's Tally accounting
 
 ### Design principles behind it

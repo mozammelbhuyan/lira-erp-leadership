@@ -16,7 +16,7 @@ Users adopted the system well. Instead of buying a new ERP, management asked me 
 
 ## Seven phases of growth
 
-Over 7 phases I grew the starter system into a multi-company ERP that now serves 8 group companies, adding Procurement, Accounts Payable, Production, Field Force, HR & Payroll, MIS dashboards and Tally integration along the way.
+Over 7 phases I grew the starter system into a multi-company ERP that now serves 8 group companies, adding Administration, Field Force Management, Shipment Management, Procurement, Accounts Payable, MIS dashboards and Tally integration along the way.
 
 Two design choices made that growth possible:
 
